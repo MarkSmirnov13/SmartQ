@@ -6,7 +6,8 @@ export const LoadingState = {
 
 export const QueueActionTypes = {
   SET_QUEUE: "QUEUE:SET_QUEUE",
-  SET_LOADING_STATE: "QUEUE:SET_LOADING_STATE"
+  SET_LOADING_STATE: "QUEUE:SET_LOADING_STATE",
+  ADD_MEMBER: "QUEUE:ADD_MEMBER"
 }
 
 export const setQueue = queue => ({
@@ -14,6 +15,11 @@ export const setQueue = queue => ({
   payload: {
     queue
   }
+})
+
+export const addMember = member => ({
+  type: QueueActionTypes.ADD_MEMBER,
+  payload: member
 })
 
 export const setLoadingQueueState = loadingState => ({

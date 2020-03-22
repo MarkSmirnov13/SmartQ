@@ -28,6 +28,10 @@ export const queueReducer = produce((draft, action) => {
       draft.loadingState = payload.loadingState
       break
 
+    case QueueActionTypes.ADD_MEMBER:
+      draft.queue.members = [...draft.queue.members, payload.member]
+      break
+
     default:
       break
   }

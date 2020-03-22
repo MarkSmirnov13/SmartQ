@@ -18,7 +18,12 @@ const schema = new Schema({
   members: [
     {
       uuid: {
-        type: String
+        type: String,
+        required: true
+      },
+      name: {
+        type: String,
+        required: true
       }
     }
   ]

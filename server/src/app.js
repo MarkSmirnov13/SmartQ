@@ -4,8 +4,8 @@ import http from "http"
 import socketServer from "socket.io"
 import bodyParser from "body-parser"
 
-import queueModel from "./database/models/Queue"
 import { createRouter } from "./router"
+import { onConnectionHandler } from "./onConnectionHandler"
 
 const app = express()
 const server = http.createServer(app)
@@ -25,6 +25,7 @@ async function start() {
       useCreateIndex: true
     })
     server.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+    io.on("connection", onConnectionHandler)
   } catch (e) {
     console.log("Server Error:", e.message)
     process.exit(1)
@@ -32,21 +33,3 @@ async function start() {
 }
 
 start()
-
-io.on("connection", socket => {
-  console.log(`Connected to Socket!! ${socket.id}`)
-
-  socket.on("disconnect", () => {
-    console.log(`Disconnected - ${socket.id}`)
-  })
-
-  socket.on("loadQueue", uuid => {
-    queueModel.find({ uuid }, (error, result) => {
-      if (error) {
-        console.log(error)
-      } else {
-        socket.emit("queueLoaded", result)
-      }
-    })
-  })
-})
